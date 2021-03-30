@@ -1,0 +1,9 @@
+.counter-btn {
+    margin-bottom: 30px;
+    padding: 0 15px;
+    background: transparent;
+    border: 1px solid transparent;
+    font-size: 30px;
+    font-weight: bold;
+    color: teal;
+}

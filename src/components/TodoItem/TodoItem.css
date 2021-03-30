@@ -1,0 +1,23 @@
+.todo-item {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+.todo-item_status {
+    font-weight: bold;
+}
+
+.todo-item_status.is-done {
+    color: blue;
+}
+
+.todo-item_status.is-progress {
+    color: green;
+}
+
+.todo-item_status.is-new{
+    color: red;
+}
