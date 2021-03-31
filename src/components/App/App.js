@@ -21,9 +21,7 @@ function App() {
   const decrementCount = () => {
     if (startNumber > 0) {
       nextNumber(startNumber-1);
-    } else if (startNumber === 0) {
-      return startNumber;
-    }
+    } 
   };
 
   const [startYear, nextYear] = useState('2021');
