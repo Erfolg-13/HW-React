@@ -1,8 +1,8 @@
 import './Counter.css';
+
 function Counter (props) {
     return (
-        <button className="counter-btn">{props.number}</button>
-
+        <button className="counter-result">{props.number}</button>
     )
 }
 

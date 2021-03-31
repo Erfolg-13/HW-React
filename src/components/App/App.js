@@ -41,11 +41,12 @@ function App() {
       </button>
       <br />
 
-      <h2>Counter:</h2>
-      <button onClick={decrementCount}>-</button>
-      <Counter number={startNumber}/>
-      <button onClick={incrementCount}>+</button>
-      <br />
+      <div className="counter-container">
+        <h2>Counter:</h2>
+        <button className="counter-btns" onClick={decrementCount}>-</button>
+        <Counter number={startNumber}/>
+        <button className="counter-btns" onClick={incrementCount}>+</button>
+      </div>
 
       <h3>Choose the STATUS of a study progress</h3>
       <TodoItem name='learn HTML'/>
