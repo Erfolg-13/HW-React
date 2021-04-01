@@ -24,6 +24,13 @@ function App() {
     } 
   };
 
+  const [list, changeList] = useState([
+    {status: 'new', name: "learn HTML"},
+    {status: 'new', name: "learn CSS"},
+    {status: 'new', name: "learn JavaScript"},
+    {status: 'new', name: "learn React"},
+  ]);
+  
   const [startYear, nextYear] = useState('2021');
   const addYear = useCallback ( () => {
     nextYear(+startYear+1);
@@ -47,10 +54,13 @@ function App() {
       </div>
 
       <h3>Choose the STATUS of a study progress</h3>
-      <TodoItem name='learn HTML'/>
-      <TodoItem name='learn CSS'/>
-      <TodoItem name='learn JavaScript'/>
-      <TodoItem name='learn React'/>
+      {list.map((todoItem) => {
+        return <TodoItem 
+          key={todoItem.name} 
+          name={todoItem.name} 
+          status={todoItem.status}
+          onChange = {changeList} />
+      })}
 
       <button onClick={addYear}>
           Increase year
