@@ -1,9 +1,9 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import './TodoItem.css';
 
 function TodoItem (props) {
     const handleChangeStatus = useCallback(() => {
-        props.onChange([])
+        props.onChange(props.status, props.name)
     }, [props.status, props.name])
     // const [status, setStatus] = useState(props.status);
 
