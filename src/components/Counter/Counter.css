@@ -1,9 +1,24 @@
-.counter-btn {
+.counter-result {
     margin-bottom: 30px;
     padding: 0 15px;
     background: transparent;
     border: 1px solid transparent;
     font-size: 30px;
     font-weight: bold;
-    color: teal;
+    color: rgb(15, 141, 141);
+}
+
+.counter-container {
+    background: rgba(255, 255, 111, 0.075);
+    margin: 10px auto;
+    width:30%;
+    height: auto;
+    border: 2px solid rgb(15, 141, 141);
+    border-radius: 10px;
+}
+
+.counter-btns {
+    width:25px;
+    height: 25px;
+    background: rgba(0, 128, 128, 0.397);
 }

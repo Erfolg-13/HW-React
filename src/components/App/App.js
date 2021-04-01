@@ -21,11 +21,59 @@ function App() {
   const decrementCount = () => {
     if (startNumber > 0) {
       nextNumber(startNumber-1);
-    } else if (startNumber === 0) {
-      return startNumber;
-    }
+    } 
   };
 
+  const [list, changeList] = useState([
+    {status: 'new', name: "learn HTML"},
+    {status: 'new', name: "learn CSS"},
+    {status: 'new', name: "learn JavaScript"},
+    {status: 'new', name: "learn React"},
+  ]);
+
+  const handleChange = useCallback((status, name) => {
+    if (status === 'new') {
+      changeList((prevState) => {
+        return prevState.map((todo) => {
+          if (todo.name === name) {
+             return {
+            name: todo.name,
+            status: 'progress',
+            }
+          }
+         return todo;
+        })
+      });
+   
+    } else if (status === 'progress') {
+      changeList((prevState) => {
+        return prevState.map((todo) => {
+          if (todo.name === name) {
+             return {
+            name: todo.name,
+            status: 'done',
+            }
+          }
+         return todo;
+        })
+      });
+
+    } else if (status === 'done') {
+      changeList((prevState) => {
+        return prevState.map((todo) => {
+          if (todo.name === name) {
+             return {
+            name: todo.name,
+            status: 'new',
+            }
+          }
+         return todo;
+        })
+      });
+    };
+  }, [list]);
+  console.log(list); 
+    
   const [startYear, nextYear] = useState('2021');
   const addYear = useCallback ( () => {
     nextYear(+startYear+1);
@@ -41,17 +89,24 @@ function App() {
       </button>
       <br />
 
-      <h2>Counter:</h2>
-      <button onClick={decrementCount}>-</button>
-      <Counter number={startNumber}/>
-      <button onClick={incrementCount}>+</button>
-      <br />
+      <div className="counter-container">
+        <h2>Counter:</h2>
+        <button className="counter-btns" onClick={decrementCount}>-</button>
+        <Counter number={startNumber}/>
+        <button className="counter-btns" onClick={incrementCount}>+</button>
+      </div>
 
       <h3>Choose the STATUS of a study progress</h3>
-      <TodoItem name='learn HTML'/>
-      <TodoItem name='learn CSS'/>
-      <TodoItem name='learn JavaScript'/>
-      <TodoItem name='learn React'/>
+      {list.map((todoItem) => {
+        return (
+        <TodoItem 
+            key={todoItem.name} 
+            name={todoItem.name} 
+            status={todoItem.status}
+            onChange = {handleChange} 
+        />
+        );
+      })}
 
       <button onClick={addYear}>
           Increase year
