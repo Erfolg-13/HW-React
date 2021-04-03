@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import Header from '../Header/Header';
 import Counter from '../Counter/Counter';
 import TodoItem from '../TodoItem/TodoItem';
+import TodoItemForm from '../TodoItemForm/TodoItemForm';
 import Footer from '../Footer/Footer';
 import './App.css';
 import React from 'react';
@@ -23,14 +24,42 @@ function App() {
       nextNumber(startNumber-1);
     } 
   };
-
+  
   const [list, changeList] = useState([
-    {status: 'new', name: "learn HTML"},
-    {status: 'new', name: "learn CSS"},
-    {status: 'new', name: "learn JavaScript"},
-    {status: 'new', name: "learn React"},
+    {id: '001', status: 'new', name: "learn HTML"},
+    {id: '002', status: 'new', name: "learn CSS"},
+    {id: '003', status: 'new', name: "learn JavaScript"},
+    {id: '004', status: 'new', name: "learn React"},
   ]);
-    
+  const [formIsVisible, changeFormVisibility] = useState(false);
+
+  const handleCreateTodo = useCallback(() => {
+    changeFormVisibility(true);
+  }, []);
+
+  const generateID = useCallback(() => {
+    return (
+      Math.random().toString(36).substr(2,9)
+    );
+  }, [])
+
+  const addNewItemTodo = useCallback((name, status) => {
+    changeList((prevState) => {
+      const newState = prevState.concat([{ id: generateID(), status, name }]);
+      return newState;
+    });
+    changeFormVisibility(false);
+  }, []);
+
+  const deleteItemByID = useCallback((id) => {
+    changeList((prevState) => {
+      const newState = prevState.filter((todoItem) => {
+        return todoItem.id !== id;   
+      });
+      return newState;
+    });
+  }, []);
+
   const [startYear, nextYear] = useState('2021');
   const addYear = useCallback ( () => {
     nextYear(+startYear+1);
@@ -57,14 +86,22 @@ function App() {
       {list.map((todoItem) => {
         return (
         <TodoItem 
-            key={todoItem.name} 
+            key={todoItem.id} 
+            id={todoItem.id}
             name={todoItem.name} 
             status={todoItem.status}
             onChange = {changeList} 
+            onDelete = {deleteItemByID}
         />
         );
       })}
-
+      <div>
+        <button className="addItemBtn" onClick={handleCreateTodo}>
+          Add item
+        </button>
+         {formIsVisible ? <TodoItemForm onSave={addNewItemTodo} /> : null}
+      </div>
+     
       <button onClick={addYear}>
           Increase year
       </button>

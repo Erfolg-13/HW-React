@@ -1,0 +1,37 @@
+.addItemBtn {
+    margin: 10px auto;
+    width: 100px;
+    height: 30px;
+    font-size: 15px;
+}
+
+.form-add {
+    width: 70%;
+    padding: 20px;
+    margin: 0 auto 25px;
+    background-color: rgba(255, 255, 224, 0.712);
+    text-align: left;
+    border: 1px solid rgb(182, 182, 160);;
+    border-radius: 10px;
+}
+
+.form-addLabel {
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-add-input {
+    width: 80%;
+    height: 25px;
+    background-color:rgba(211, 211, 211, 0.37);
+    margin-bottom: 20px;
+    
+}
+
+.form-brn-Submit {
+    display: block;
+    margin: 0 auto;
+    width: 50px;
+    height: 30px;
+    font-weight: bold;
+}
