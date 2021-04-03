@@ -30,49 +30,6 @@ function App() {
     {status: 'new', name: "learn JavaScript"},
     {status: 'new', name: "learn React"},
   ]);
-
-  const handleChange = useCallback((status, name) => {
-    if (status === 'new') {
-      changeList((prevState) => {
-        return prevState.map((todo) => {
-          if (todo.name === name) {
-             return {
-            name: todo.name,
-            status: 'progress',
-            }
-          }
-         return todo;
-        })
-      });
-   
-    } else if (status === 'progress') {
-      changeList((prevState) => {
-        return prevState.map((todo) => {
-          if (todo.name === name) {
-             return {
-            name: todo.name,
-            status: 'done',
-            }
-          }
-         return todo;
-        })
-      });
-
-    } else if (status === 'done') {
-      changeList((prevState) => {
-        return prevState.map((todo) => {
-          if (todo.name === name) {
-             return {
-            name: todo.name,
-            status: 'new',
-            }
-          }
-         return todo;
-        })
-      });
-    };
-  }, [list]);
-  console.log(list); 
     
   const [startYear, nextYear] = useState('2021');
   const addYear = useCallback ( () => {
@@ -103,7 +60,7 @@ function App() {
             key={todoItem.name} 
             name={todoItem.name} 
             status={todoItem.status}
-            onChange = {handleChange} 
+            onChange = {changeList} 
         />
         );
       })}
