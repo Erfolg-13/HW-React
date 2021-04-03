@@ -2,11 +2,6 @@ import { useCallback, useState } from 'react';
 import './TodoItem.css';
 
 function TodoItem(props) {
-    
-    // const handleChangeStatus = useCallback(() => {
-    //     props.onChange(props.status, props.name)
-    // }, [props.status, props.name])
-
     const [status, setStatus] = useState('new');
 
     const handleChangeStatus = useCallback (() => {
@@ -20,6 +15,12 @@ function TodoItem(props) {
         props.onChange(status);
     }, [status, props]);
 
+    const handleDeleteItem = useCallback (() => {
+        props.onDelete(props.id);
+    }, [props]);
+
+
+
     return (
         <div className={`todo-item is-${status}`}>
             <div className={`todo-item_status is-${status}`}>
@@ -31,6 +32,7 @@ function TodoItem(props) {
             <button onClick={handleChangeStatus}>
                 Change status
             </button>
+            <button onClick={handleDeleteItem}>X</button>
 
         </div>
     )
