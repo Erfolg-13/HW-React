@@ -1,9 +1,18 @@
 .todo-item {
-    margin-bottom: 30px;
+    background-color: rgba(0, 0, 255, 0.027);
+    margin: 0 auto 3px;
+    padding: 10px;
+    width: 70%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 10px;
+    border-radius: 5px;   
+}
+.todo-item.is-new {
+    background-color:rgba(245, 201, 201, 0.61);
+}
+.todo-item.is-progress {
+    background-color: #99cd323f;
 }
 
 .todo-item_status {
