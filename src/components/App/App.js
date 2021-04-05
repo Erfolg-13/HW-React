@@ -82,7 +82,7 @@ function App() {
         <button className="counter-btns" onClick={incrementCount}>+</button>
       </div>
 
-      <h3>Choose the STATUS of a study progress</h3>
+      <h3>A study progress</h3>
       {list.map((todoItem) => {
         return (
         <TodoItem 
