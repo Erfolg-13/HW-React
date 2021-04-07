@@ -32,24 +32,82 @@ function App() {
     {id: '004', status: 'new', name: "learn React"},
   ]);
   const [formIsVisible, changeFormVisibility] = useState(false);
+  const [editItemId, setEditItemId] = useState(null);
+
+  function handleChangeStatus (someStatus) {
+    if (someStatus === 'new') {
+      return 'progress';
+    } else if (someStatus === 'progress') {
+      return 'done';
+    } else if (someStatus === 'done') {
+      return 'new';
+    }
+  };
+
+  const changeStatus = useCallback((id, status, name) => {
+    changeList((prevState) =>  {
+      console.log('prevState', prevState);
+      const newState = prevState.map((item) => {
+        if (item.name === name) {
+          return {
+            id: id,
+            status: handleChangeStatus(status),
+            name: name,
+          };
+        }
+        return item;
+      });
+      console.log('newState', newState);
+      return newState;
+    });
+  }, []);
+
+
 
   const handleCreateTodo = useCallback(() => {
     changeFormVisibility(true);
   }, []);
 
   const generateID = useCallback(() => {
-    return (
-      Math.random().toString(36).substr(2,9)
-    );
-  }, [])
+    return ( Math.random().toString(36).substr(2,7));
+  }, []);
 
-  const addNewItemTodo = useCallback((name, status) => {
+  const addNewItemTodo = useCallback((id, status, name) => {
     changeList((prevState) => {
-      const newState = prevState.concat([{ id: generateID(), status, name }]);
+      const newState = prevState.concat([{ id: generateID(), status, name}]);
+      console.log('newItem', newState);
       return newState;
     });
     changeFormVisibility(false);
   }, []);
+
+  const updateItem = useCallback((updateItemID, updateItemStatus, updateItemName ) => {
+    changeList((prevState) => {
+      const newState = prevState.map((item) => {
+        if (item.id === updateItemID) {
+          return {
+            id: item.id, 
+            status: updateItemStatus, 
+            name: updateItemName,        
+          };
+        } else {
+          return item;
+        }
+      });
+      console.log('newState', newState)
+      return newState;
+    });
+    setEditItemId(false);
+  }, []);
+
+  const changeItemByID = useCallback((id) => {
+    const showItemForEdit = list.find((item) => {
+      return (item.id === id);
+    });
+    setEditItemId(showItemForEdit);
+  }, [list]);
+
+
 
   const deleteItemByID = useCallback((id) => {
     changeList((prevState) => {
@@ -88,9 +146,10 @@ function App() {
         <TodoItem 
             key={todoItem.id} 
             id={todoItem.id}
-            name={todoItem.name} 
             status={todoItem.status}
-            onChange = {changeList} 
+            name={todoItem.name} 
+            onChange = {changeStatus} 
+            onEdit = {changeItemByID}
             onDelete = {deleteItemByID}
         />
         );
@@ -99,7 +158,15 @@ function App() {
         <button className="addItemBtn" onClick={handleCreateTodo}>
           Add item
         </button>
-         {formIsVisible ? <TodoItemForm onSave={addNewItemTodo} /> : null}
+         {formIsVisible ? (
+         <TodoItemForm 
+          onSave={addNewItemTodo} />) : null}
+         {editItemId ? (
+         <TodoItemForm 
+            id={editItemId.id}
+            status={editItemId.status}
+            name={editItemId.name}
+            onSave={updateItem} />) : null}
       </div>
      
       <button onClick={addYear}>
